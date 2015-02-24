@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurcMapReader", "FurcMapReader.csproj", "{FCD6540C-CDD3-4F7C-8CAE-43F0379C3CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurcMapReaderTest", "..\FurcMapReaderTest\FurcMapReaderTest.csproj", "{187C221F-6117-45AD-B90B-6F5E52CE16E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralTest", "Tests\GeneralTest\GeneralTest.csproj", "{187C221F-6117-45AD-B90B-6F5E52CE16E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
