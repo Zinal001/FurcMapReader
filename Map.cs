@@ -198,7 +198,7 @@ namespace Zinal.FurcMapReader
                 this.width = int.Parse(Values["width"]);
 
             if (Values.ContainsKey("revision"))
-                this.revision = int.Parse(Values["width"]);
+                this.revision = int.Parse(Values["revision"]);
 
             if (Values.ContainsKey("patcht"))
                 this.patcht = int.Parse(Values["patcht"]);
@@ -378,12 +378,12 @@ namespace Zinal.FurcMapReader
         }
 
         /// <summary>
-        /// Set the floor number at a tile specified by x & y
+        /// Set the floor number at a tile specified by x and y
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setPosAt(int x, int y, ushort floorNumber)
+        public void setFloorAt(int x, int y, ushort floorNumber)
         {
             int pos = getPosFrom(x, y);
 
@@ -537,19 +537,19 @@ namespace Zinal.FurcMapReader
             headerData += "patcht=" + this.patcht + "\n";
             headerData += "name=" + this.name + "\n";
             headerData += "patchs=" + this.patchs + "\n";
-            headerData += "encoded=" + this.encoded + "\n";
-            headerData += "allowjs=" + this.allowjs + "\n";
-            headerData += "allowlf=" + this.allowlf + "\n";
-            headerData += "allowfurl=" + this.allowfurl + "\n";
-            headerData += "swearfilter=" + this.swearfilter + "\n";
-            headerData += "nowho=" + this.nowho + "\n";
-            headerData += "forcesittable=" + this.forcesittable + "\n";
-            headerData += "allowshouts=" + this.allowshouts + "\n";
+            headerData += "encoded=" + (this.encoded ? "1" : "0") + "\n";
+            headerData += "allowjs=" + (this.allowjs ? "1" : "0") + "\n";
+            headerData += "allowlf=" + (this.allowlf ? "1" : "0") + "\n";
+            headerData += "allowfurl=" + (this.allowfurl ? "1" : "0") + "\n";
+            headerData += "swearfilter=" + (this.swearfilter ? "1" : "0") + "\n";
+            headerData += "nowho=" + (this.nowho ? "1" : "0") + "\n";
+            headerData += "forcesittable=" + (this.forcesittable ? "1" : "0") + "\n";
+            headerData += "allowshouts=" + (this.allowshouts ? "1" : "0") + "\n";
             headerData += "rating=" + this.rating + "\n";
-            headerData += "allowlarge=" + this.allowlarge + "\n";
-            headerData += "notab=" + this.notab + "\n";
-            headerData += "nonovelty=" + this.nonovelty + "\n";
-            headerData += "parentalcontrols=" + this.parentalcontrols + "\n";
+            headerData += "allowlarge=" + (this.allowlarge ? "1" : "0") + "\n";
+            headerData += "notab=" + (this.notab ? "1" : "0") + "\n";
+            headerData += "nonovelty=" + (this.nonovelty ? "1" : "0") + "\n";
+            headerData += "parentalcontrols=" + (this.parentalcontrols ? "1" : "0") + "\n";
             headerData += "BODY\n";
 
             byte[] headerDataBytes = Encoding.ASCII.GetBytes(headerData);
