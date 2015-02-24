@@ -530,9 +530,27 @@ namespace Zinal.FurcMapReader
             FileStream fs = new FileStream(filename, FileMode.Create);
             BinaryWriter sw = new BinaryWriter(fs, Encoding.ASCII);
 
-            String headerData = "";
-            foreach (String line in this.headerLines)
-                headerData += line + "\n";
+            String headerData = "MAP V01.40 Furcadia\n";
+            headerData += "height=" + this.height + "\n";
+            headerData += "width=" + this.width + "\n";
+            headerData += "revision=" + this.revision + "\n";
+            headerData += "patcht=" + this.patcht + "\n";
+            headerData += "name=" + this.name + "\n";
+            headerData += "patchs=" + this.patchs + "\n";
+            headerData += "encoded=" + this.encoded + "\n";
+            headerData += "allowjs=" + this.allowjs + "\n";
+            headerData += "allowlf=" + this.allowlf + "\n";
+            headerData += "allowfurl=" + this.allowfurl + "\n";
+            headerData += "swearfilter=" + this.swearfilter + "\n";
+            headerData += "nowho=" + this.nowho + "\n";
+            headerData += "forcesittable=" + this.forcesittable + "\n";
+            headerData += "allowshouts=" + this.allowshouts + "\n";
+            headerData += "rating=" + this.rating + "\n";
+            headerData += "allowlarge=" + this.allowlarge + "\n";
+            headerData += "notab=" + this.notab + "\n";
+            headerData += "nonovelty=" + this.nonovelty + "\n";
+            headerData += "parentalcontrols=" + this.parentalcontrols + "\n";
+            headerData += "BODY\n";
 
             byte[] headerDataBytes = Encoding.ASCII.GetBytes(headerData);
 
