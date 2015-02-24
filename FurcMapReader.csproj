@@ -8,7 +8,7 @@
     <ProjectGuid>{FCD6540C-CDD3-4F7C-8CAE-43F0379C3CB9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FurcMapReader</RootNamespace>
+    <RootNamespace>Zinal.FurcMapReader</RootNamespace>
     <AssemblyName>FurcMapReader</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

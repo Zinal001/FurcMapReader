@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FurcMapReader
+namespace Zinal.FurcMapReader
 {
     public class MapPosition
     {
