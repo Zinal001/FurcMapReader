@@ -296,7 +296,7 @@ namespace Zinal.FurcMapReader
             Map m = new Map();
 
             FileStream fs = new FileStream(filename, FileMode.Open);
-            BinaryReader br = new BinaryReader(fs);
+            BinaryReader br = new BinaryReader(fs, Encoding.GetEncoding(1252));
 
             String currentLine = "" + br.ReadChar();
             while (true)
@@ -552,7 +552,7 @@ namespace Zinal.FurcMapReader
             headerData += "parentalcontrols=" + (this.parentalcontrols ? "1" : "0") + "\n";
             headerData += "BODY\n";
 
-            byte[] headerDataBytes = Encoding.ASCII.GetBytes(headerData);
+            byte[] headerDataBytes = Encoding.GetEncoding(1252).GetBytes(headerData);
 
             sw.Write(headerDataBytes);
             sw.Write(this.floors);
