@@ -27,6 +27,36 @@ namespace Zinal.FurcMapReader
 
         #region Public Variables
 
+
+        public MapTile this[MapPosition pos]
+        {
+            get
+            {
+                return this.GetMapTile(pos.X, pos.Y);
+            }
+
+            set
+            {
+                this.SetObjectAt(pos.X, pos.Y, pos.ObjectNumber);
+                this.SetFloorAt(pos.X, pos.Y, pos.FloorNumber);
+                this.SetWallAt(pos.X, pos.Y, pos.WallNumber);
+                this.SetRegionAt(pos.X, pos.Y, pos.RegionNumber);
+                this.SetEffectAt(pos.X, pos.Y, pos.EffectNumber);
+            }
+        }
+
+        public MapTile this[int x, int y]
+        {
+            get
+            {
+                return this.GetMapTile(x, y);
+            }
+            set
+            {
+
+            }
+        }
+
         /// <summary>
         /// The actual width of the map (READ-ONLY)
         /// </summary>
@@ -370,7 +400,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>The floor number</returns>
-        public ushort getFloorAt(int x, int y)
+        public ushort GetFloorAt(int x, int y)
         {
             int pos = getPosFrom(x, y);
 
@@ -383,7 +413,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setFloorAt(int x, int y, ushort floorNumber)
+        public void SetFloorAt(int x, int y, ushort floorNumber)
         {
             int pos = getPosFrom(x, y);
 
@@ -396,7 +426,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>The object number</returns>
-        public ushort getObjectAt(int x, int y)
+        public ushort GetObjectAt(int x, int y)
         {
             int pos = getPosFrom(x, y);
 
@@ -409,7 +439,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setObjectAt(int x, int y, ushort objectNumber)
+        public void SetObjectAt(int x, int y, ushort objectNumber)
         {
             int pos = getPosFrom(x, y);
 
@@ -422,7 +452,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>The wall number</returns>
-        public ushort getWallAt(int x, int y)
+        public ushort GetWallAt(int x, int y)
         {
             int pos = (this.height * x + y);
 
@@ -435,7 +465,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setWallAt(int x, int y, ushort wallNumber)
+        public void SetWallAt(int x, int y, ushort wallNumber)
         {
             int pos = (this.height * x + y);
 
@@ -448,7 +478,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>The region number</returns>
-        public ushort getRegionAt(int x, int y)
+        public ushort GetRegionAt(int x, int y)
         {
             int pos = getPosFrom(x, y);
 
@@ -461,7 +491,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setRegionAt(int x, int y, ushort regionNumber)
+        public void SetRegionAt(int x, int y, ushort regionNumber)
         {
             int pos = getPosFrom(x, y);
 
@@ -474,7 +504,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>The effect number</returns>
-        public ushort getEffectAt(int x, int y)
+        public ushort GetEffectAt(int x, int y)
         {
             int pos = getPosFrom(x, y);
 
@@ -487,7 +517,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="floorNumber"></param>
-        public void setEffectAt(int x, int y, ushort effectNumber)
+        public void SetEffectAt(int x, int y, ushort effectNumber)
         {
             int pos = getPosFrom(x, y);
 
@@ -500,7 +530,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public MapPosition getMapPos(int x, int y)
+        public MapPosition GetMapPos(int x, int y)
         {
             return new MapPosition(x, y, this);
         }
@@ -511,7 +541,7 @@ namespace Zinal.FurcMapReader
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public MapTile getMapTile(int x, int y)
+        public MapTile GetMapTile(int x, int y)
         {
             return new MapTile(x, y, this);
         }
