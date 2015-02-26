@@ -8,6 +8,7 @@ namespace Zinal.FurcMapReader
 {
     public class Map
     {
+        #region Private Variables
         private List<String> headerLines = new List<String>();
         private Dictionary<String, String> mapData = new Dictionary<String, String>();
 
@@ -17,34 +18,27 @@ namespace Zinal.FurcMapReader
 
         private byte[] mapMatrix, floors, objects, walls, regions, effects;
 
+        private MapTile[,] tiles;
+        #endregion
+
+        #region Internal Variables
         internal int bytesLayerCount
         {
             get
             {
-                return ((width * 2) * height);
+                return width * height * 2;
             }
         }
-
+        #endregion
+        
         #region Public Variables
 
-
-        public MapTile this[MapPosition pos]
-        {
-            get
-            {
-                return this.GetMapTile(pos.X, pos.Y);
-            }
-
-            set
-            {
-                this.SetObjectAt(pos.X, pos.Y, pos.ObjectNumber);
-                this.SetFloorAt(pos.X, pos.Y, pos.FloorNumber);
-                this.SetWallAt(pos.X, pos.Y, pos.WallNumber);
-                this.SetRegionAt(pos.X, pos.Y, pos.RegionNumber);
-                this.SetEffectAt(pos.X, pos.Y, pos.EffectNumber);
-            }
-        }
-
+        /// <summary>
+        /// Get or Set a MapTile object on this Map
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public MapTile this[int x, int y]
         {
             get
@@ -53,12 +47,17 @@ namespace Zinal.FurcMapReader
             }
             set
             {
-
+                this.SetObjectAt(value.X, value.Y, value.ObjectNumber);
+                this.SetFloorAt(value.X, value.Y, value.FloorNumber);
+                this.SetWallAt(value.X, value.Y, value.RealWallNumber);
+                this.SetRegionAt(value.X, value.Y, value.RegionNumber);
+                this.SetEffectAt(value.X, value.Y, value.EffectNumber);
+                this.tiles[x, y] = value;
             }
         }
 
         /// <summary>
-        /// The actual width of the map (READ-ONLY)
+        /// Get the actual width of the map
         /// </summary>
         public int Width
         {
@@ -66,118 +65,171 @@ namespace Zinal.FurcMapReader
         }
 
         /// <summary>
-        /// The actual height of the map (READ-ONLY)
+        /// Get the actual height of the map
         /// </summary>
         public int Height
         {
             get { return this.height; }
         }
 
-        public int UsePatch
+        /// <summary>
+        /// Get or set if this map should use a patch
+        /// </summary>
+        public PatchSetting UsePatch
         {
-            get { return this.patcht; }
-            set { this.patcht = value; }
+            get { return (PatchSetting)this.patcht; }
+            set { this.patcht = (int)value; }
         }
 
+        /// <summary>
+        /// Allow joining and summoning inside on map
+        /// </summary>
         public bool AllowJoinSummon
         {
             get { return this.allowjs; }
             set { this.allowjs = value; }
         }
 
+        /// <summary>
+        /// Allow leading and following inside on map
+        /// </summary>
         public bool AllowLeadFollow
         {
             get { return this.allowlf; }
             set { this.allowlf = value; }
         }
 
+        /// <summary>
+        /// Allow entry with links (furc://)
+        /// </summary>
         public bool AllowDreamURL
         {
             get { return this.allowfurl; }
             set { this.allowfurl = value; }
         }
 
+        /// <summary>
+        /// Use a swear filter on this map
+        /// </summary>
         public bool UseSwearFilter
         {
             get { return this.swearfilter; }
             set { this.swearfilter = value; }
         }
 
+        /// <summary>
+        /// Prevent listing of current player on this map
+        /// </summary>
         public bool PreventPlayerListing
         {
             get { return this.nowho; }
             set { this.nowho = value; }
         }
 
+        /// <summary>
+        /// Allow sitting only on items with the sittable attribute
+        /// </summary>
         public bool ForceSitting
         {
             get { return this.forcesittable; }
             set { this.forcesittable = value; }
         }
 
+        /// <summary>
+        /// Allow people to shout on this map
+        /// </summary>
         public bool AllowShouting
         {
             get { return this.allowshouts; }
             set { this.allowshouts = value; }
         }
 
+
+        /// <summary>
+        /// Allow mapsize above 208x200 tiles (This will require a Group Package)
+        /// </summary>
         public bool AllowLargeDreamSize
         {
             get { return this.allowlarge; }
             set { this.allowlarge = value; }
         }
 
+        /// <summary>
+        /// Prevent name listing with the TAB key
+        /// </summary>
         public bool PreventTabListing
         {
             get { return this.notab; }
             set { this.notab = value; }
         }
 
+        /// <summary>
+        /// Prevent the use of seasonal avatars on this map
+        /// </summary>
         public bool PreventSeasonalAvatars
         {
             get { return this.nonovelty; }
             set { this.nonovelty = value; }
         }
 
+        /// <summary>
+        /// Enforce parental controls
+        /// </summary>
         public bool EnforceParentalControls
         {
             get { return this.parentalcontrols; }
             set { this.parentalcontrols = value; }
         }
 
+        /// <summary>
+        /// Encode this map on upload
+        /// </summary>
         public bool EncodeDream
         {
             get { return this.encoded; }
             set { this.encoded = value; }
         }
 
+        /// <summary>
+        /// Get or Set the name of the map
+        /// </summary>
         public String Name
         {
             get { return this.name; }
             set { this.name = value; }
         }
 
+        /// <summary>
+        /// Get or Set the path to the patch
+        /// </summary>
         public String PatchArchive
         {
             get { return this.patchs; }
             set { this.patchs = value; }
         }
 
+        /// <summary>
+        /// Get or Set the revision of the map
+        /// </summary>
         public int Revision
-        {
+        {   
             get { return this.revision; }
-            set { this.revision = value; }
+            set { this.revision = value;}
         }
 
+        /// <summary>
+        /// Get or Set the standard for the map
+        /// </summary>
         public String Rating
         {
             get { return this.rating; }
-            set { this.rating = value; }
+            set { this.rating = value;}
         }
 
 
         #endregion
 
+        #region Constructors
         internal Map()
         {
 
@@ -215,10 +267,21 @@ namespace Zinal.FurcMapReader
 
             SetMapHeaders(this.mapData);
 
+            this.tiles = new MapTile[this.Width, this.Height];
+
+            for (int x = 0; x < this.Width; x++)
+            {
+                for (int y = 0; y < this.Height; y++)
+                    this.tiles[x, y] = new MapTile(x, y, this);
+            }
+
             byte[] mapMatrix = new byte[this.bytesLayerCount * 5];
             this.mapMatrix = mapMatrix;
         }
 
+        #endregion
+
+        #region Private Functions
         private void SetMapHeaders(Dictionary<String, String> Values)
         {
             if (Values.ContainsKey("height"))
@@ -281,11 +344,6 @@ namespace Zinal.FurcMapReader
 
         private bool ParseMatrix(byte[] matrix)
         {
-            if (matrix.Length != this.bytesLayerCount * 5)
-            {
-                Console.WriteLine("Something is wrong here...");
-                return false;
-            }
             this.mapMatrix = matrix;
 
             for (int i = 0; i < this.bytesLayerCount; i++)
@@ -301,20 +359,65 @@ namespace Zinal.FurcMapReader
                 walls[i] = matrix[i + (this.bytesLayerCount * 2)];
             }
 
-            for (int i = 0; i < this.bytesLayerCount; i++)
+            if (matrix.Length > this.bytesLayerCount * 3)
             {
-                regions[i] = matrix[i + (this.bytesLayerCount * 3)];
-            }
+                for (int i = 0; i < this.bytesLayerCount; i++)
+                {
+                    regions[i] = matrix[i + (this.bytesLayerCount * 3)];
+                }
 
-            for (int i = 0; i < this.bytesLayerCount; i++)
+                for (int i = 0; i < this.bytesLayerCount; i++)
+                {
+                    effects[i] = matrix[i + (this.bytesLayerCount * 4)];
+                }
+            }
+            else
             {
-                effects[i] = matrix[i + (this.bytesLayerCount * 4)];
+                for (int i = 0; i < this.bytesLayerCount; i++)
+                {
+                    regions[i] = new byte();
+                    effects[i] = new byte();
+                }
             }
-
 
             return true;
         }
 
+        private int getPosFrom(int x, int y)
+        {
+            return ((this.height * (x / 2) + y) * 2);
+        }
+        #endregion
+
+        #region Internal Functions
+
+        internal void internal_setFloorAt(int x, int y, ushort nr)
+        {
+            this.floors[getPosFrom(x, y)] = (byte)nr;
+        }
+
+        internal void internal_setObjectAt(int x, int y, ushort nr)
+        {
+            this.objects[getPosFrom(x, y)] = (byte)nr;
+        }
+
+        internal void internal_setWallAt(int x, int y, ushort nr)
+        {
+            this.walls[this.height * x + y] = (byte)nr;
+        }
+
+        internal void internal_setRegionAt(int x, int y, ushort nr)
+        {
+            this.regions[getPosFrom(x, y)] = (byte)nr;
+        }
+
+        internal void internal_setEffectAt(int x, int y, ushort nr)
+        {
+            this.effects[getPosFrom(x, y)] = (byte)nr;
+        }
+        #endregion
+
+        #region Public Functions
         /// <summary>
         /// Loads a map from a file
         /// </summary>
@@ -324,7 +427,6 @@ namespace Zinal.FurcMapReader
         public static Map LoadFrom(String filename)
         {
             Map m = new Map();
-
             FileStream fs = new FileStream(filename, FileMode.Open);
             BinaryReader br = new BinaryReader(fs, Encoding.GetEncoding(1252));
 
@@ -386,12 +488,17 @@ namespace Zinal.FurcMapReader
 
             m.ParseMatrix(mapMatrix.ToArray());
 
-            return m;
-        }
+            m.tiles = new MapTile[m.Width, m.Height];
 
-        private int getPosFrom(int x, int y)
-        {
-            return ((this.height * (x / 2) + y) * 2);
+            for (int x = 0; x < m.Width; x++)
+            {
+                for (int y = 0; y < m.Height; y++)
+                {
+                    m.tiles[x, y] = new MapTile(x, y, m);
+                }
+            }
+
+            return m;
         }
 
         /// <summary>
@@ -525,17 +632,6 @@ namespace Zinal.FurcMapReader
         }
 
         /// <summary>
-        /// Get a MapPosition object from the position specified by x & y
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public MapPosition GetMapPos(int x, int y)
-        {
-            return new MapPosition(x, y, this);
-        }
-
-        /// <summary>
         /// Get a MapTile object from the position specified by x & y
         /// </summary>
         /// <param name="x"></param>
@@ -543,7 +639,7 @@ namespace Zinal.FurcMapReader
         /// <returns></returns>
         public MapTile GetMapTile(int x, int y)
         {
-            return new MapTile(x, y, this);
+            return this.tiles[x, y];
         }
 
         /// <summary>
@@ -596,6 +692,8 @@ namespace Zinal.FurcMapReader
 
             return true;
         }
+        #endregion
+
     }
 
     public static class MapRating
@@ -606,6 +704,13 @@ namespace Zinal.FurcMapReader
         public const String Adult = "Adult 18+";
         public const String AdultOnly = "Adults Only";
         public const String AOClean = "AOClean";
+    }
+
+    public enum PatchSetting
+    {
+        NoPatch = 0,
+        UseLocalPath = 1,
+        UseRemovePatch = 2
     }
 
 }
