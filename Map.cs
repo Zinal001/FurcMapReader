@@ -8,6 +8,11 @@ namespace Zinal.FurcMapReader
 {
     public class Map
     {
+        #region Private Static Variables
+        private static readonly char[] headerTrimChars = new char[] { '\n', '\t', '\0' };
+
+        #endregion
+
         #region Private Variables
         private List<String> headerLines = new List<String>();
         private Dictionary<String, String> mapData = new Dictionary<String, String>();
@@ -285,61 +290,61 @@ namespace Zinal.FurcMapReader
         private void SetMapHeaders(Dictionary<String, String> Values)
         {
             if (Values.ContainsKey("height"))
-                this.width = int.Parse(Values["height"]);
+                this.width = int.Parse(Values["height"].Trim(headerTrimChars));
 
             if (Values.ContainsKey("width"))
-                this.width = int.Parse(Values["width"]);
+                this.width = int.Parse(Values["width"].Trim(headerTrimChars));
 
             if (Values.ContainsKey("revision"))
-                this.revision = int.Parse(Values["revision"]);
+                this.revision = int.Parse(Values["revision"].Trim(headerTrimChars));
 
             if (Values.ContainsKey("patcht"))
-                this.patcht = int.Parse(Values["patcht"]);
+                this.patcht = int.Parse(Values["patcht"].Trim(headerTrimChars));
 
             if (Values.ContainsKey("name"))
-                this.name = Values["name"];
+                this.name = Values["name"].Trim(headerTrimChars);
 
             if (Values.ContainsKey("patchs"))
-                this.patchs = Values["patchs"];
+                this.patchs = Values["patchs"].Trim(headerTrimChars);
 
             if (Values.ContainsKey("rating"))
-                this.rating = Values["rating"];
+                this.rating = Values["rating"].Trim(headerTrimChars);
 
             if (Values.ContainsKey("allowjs"))
-                this.allowjs = Values["allowjs"] == "1";
+                this.allowjs = Values["allowjs"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("allowlf"))
-                this.allowlf = Values["allowlf"] == "1";
+                this.allowlf = Values["allowlf"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("allowfurl"))
-                this.allowfurl = Values["allowfurl"] == "1";
+                this.allowfurl = Values["allowfurl"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("swearfilter"))
-                this.swearfilter = Values["swearfilter"] == "1";
+                this.swearfilter = Values["swearfilter"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("nowho"))
-                this.nowho = Values["nowho"] == "1";
+                this.nowho = Values["nowho"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("forcesittable"))
-                this.forcesittable = Values["forcesittable"] == "1";
+                this.forcesittable = Values["forcesittable"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("allowlarge"))
-                this.allowlarge = Values["allowlarge"] == "1";
+                this.allowlarge = Values["allowlarge"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("allowshouts"))
-                this.allowshouts = Values["allowshouts"] == "1";
+                this.allowshouts = Values["allowshouts"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("notab"))
-                this.notab = Values["notab"] == "1";
+                this.notab = Values["notab"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("nonovelty"))
-                this.nonovelty = Values["nonovelty"] == "1";
+                this.nonovelty = Values["nonovelty"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("parentalcontrols"))
-                this.parentalcontrols = Values["parentalcontrols"] == "1";
+                this.parentalcontrols = Values["parentalcontrols"].Trim(headerTrimChars) == "1";
 
             if (Values.ContainsKey("encoded"))
-                this.encoded = Values["encoded"] == "1";
+                this.encoded = Values["encoded"].Trim(headerTrimChars) == "1";
         }
 
         private bool ParseMatrix(byte[] matrix)
