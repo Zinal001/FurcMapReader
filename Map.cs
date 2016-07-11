@@ -710,7 +710,7 @@ namespace Zinal.FurcMapReader
     {
         NoPatch = 0,
         UseLocalPath = 1,
-        UseRemovePatch = 2
+        UseRemotePatch = 2
     }
 
 }
